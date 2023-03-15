@@ -1,1 +1,1 @@
-<ul class="gallery"></ul>;
+<ul className="gallery"></ul>;
