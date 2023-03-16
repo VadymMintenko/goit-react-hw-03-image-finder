@@ -4,15 +4,26 @@ const KEY = '33034390-7e7038dc39440b662093bd231';
 export class ImageGalleryItem extends React.Component {
   state = {
     images: null,
+    loading: false,
   };
 
-  async componentDidUpdate(prevProps, prevState) {
-    const searchValue = this.props.value;
+  componentDidUpdate(prevProps, prevState) {
+    const inputValue = this.props.value;
     if (prevProps.value !== this.props.value) {
-      const resp = await fetch(`${BASE_URL}?key=${KEY}&q=${searchValue}`);
-      const data = await resp.json();
-      const images = data.hits;
-      this.setState({ images });
+      this.setState({ loading: true });
+
+      fetch(`${BASE_URL}?key=${KEY}&q=${inputValue}`)
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.totalHits === 0) {
+            return alert('За вашм запитом нычого не знайдено');
+          }
+          this.setState({ images: data.hits });
+        })
+        .catch(() => alert('Sorry'))
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     }
   }
 
@@ -23,9 +34,12 @@ export class ImageGalleryItem extends React.Component {
     }
     return images.map(obj => {
       return (
-        <li key={obj.id} className="gallery-item">
-          <img src={obj.webformatURL} alt="" />
-        </li>
+        <>
+          {this.state.loading && <div>Loading...</div>}
+          <li key={obj.id} className="gallery-item">
+            <img src={obj.webformatURL} alt="" />
+          </li>
+        </>
       );
     });
   }

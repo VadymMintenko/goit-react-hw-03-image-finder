@@ -14,6 +14,7 @@ export class App extends React.Component {
     return (
       <div>
         <Searchbar onSearch={this.heandleSubmit} />
+
         <ImageGalleryItem value={this.state.textSearch} />
       </div>
     );
