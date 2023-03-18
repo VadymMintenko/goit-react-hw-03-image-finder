@@ -34,12 +34,12 @@ export class ImageGalleryItem extends React.Component {
     }
     return images.map(obj => {
       return (
-        <>
+        <React.Fragment key={obj.id}>
           {this.state.loading && <div>Loading...</div>}
-          <li key={obj.id} className="gallery-item">
+          <li className="gallery-item">
             <img src={obj.webformatURL} alt="" />
           </li>
-        </>
+        </React.Fragment>
       );
     });
   }
