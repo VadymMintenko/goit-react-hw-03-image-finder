@@ -1,4 +1,5 @@
 import React from 'react';
+import { Loader } from 'components/Loader/Loader';
 const BASE_URL = 'https://pixabay.com/api/';
 const KEY = '33034390-7e7038dc39440b662093bd231';
 export class ImageGalleryItem extends React.Component {
@@ -35,9 +36,15 @@ export class ImageGalleryItem extends React.Component {
     return images.map(obj => {
       return (
         <React.Fragment key={obj.id}>
-          {this.state.loading && <div>Loading...</div>}
+          {this.state.loading && <Loader />}
           <li className="gallery-item">
-            <img src={obj.webformatURL} alt="" />
+            <img
+              src={obj.webformatURL}
+              alt=""
+              onClick={() => {
+                this.props.openModal(obj.largeImageURL);
+              }}
+            />
           </li>
         </React.Fragment>
       );
