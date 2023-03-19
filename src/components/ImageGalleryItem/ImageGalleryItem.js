@@ -1,9 +1,9 @@
 export const ImageGalleryItem = ({ openModal, images }) => {
-  return images.map(obj => {
+  return images.map((obj, idx) => {
     return (
       <li
         className="gallery-item"
-        key={obj.id}
+        key={`${obj.id}-${idx}`}
         onClick={() => {
           openModal(obj.largeImageURL);
         }}
