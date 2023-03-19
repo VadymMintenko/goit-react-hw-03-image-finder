@@ -5,22 +5,28 @@ const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends React.Component {
   componentDidMount() {
-    window.addEventListener('keydown', e => {
-      if (e.code === 'Escape') {
-        this.props.closeModal();
-      }
-    });
+    window.addEventListener('keydown', this.handleKeyDown);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.closeModal();
+    }
+  };
+
+  handleBackDropClic = e => {
+    if (e.currentTarget === e.target) {
+      this.props.closeModal();
+    }
+  };
 
   render() {
     return createPortal(
-      <Backdrop className="overlay">
-        <ModalWindow className="modal">
-          <img src={this.props.image} alt="" />
-          <button type="button" onClick={this.props.closeModal}>
-            Close
-          </button>
-        </ModalWindow>
+      <Backdrop className="overlay" onClick={this.handleBackDropClic}>
+        <ModalWindow className="modal">{this.props.children}</ModalWindow>
       </Backdrop>,
       modalRoot
     );

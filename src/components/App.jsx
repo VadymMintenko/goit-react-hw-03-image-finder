@@ -1,7 +1,7 @@
 import React from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Modal } from './Modal/Modal';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 export class App extends React.Component {
   state = {
     textSearch: '',
@@ -23,12 +23,13 @@ export class App extends React.Component {
     return (
       <div>
         {this.state.showModal && (
-          <Modal image={this.state.largeImage} closeModal={this.handleTogle} />
+          <Modal closeModal={this.handleTogle}>
+            <img src={this.state.largeImage} alt="" />
+          </Modal>
         )}
 
         <Searchbar onSearch={this.heandleSubmit} />
-
-        <ImageGalleryItem
+        <ImageGallery
           value={this.state.textSearch}
           openModal={this.handleTogle}
         />
