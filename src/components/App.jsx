@@ -2,6 +2,7 @@ import React from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Modal } from './Modal/Modal';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { AppStyled } from './App.styled';
 export class App extends React.Component {
   state = {
     textSearch: '',
@@ -21,7 +22,7 @@ export class App extends React.Component {
   };
   render() {
     return (
-      <div>
+      <AppStyled>
         {this.state.showModal && (
           <Modal closeModal={this.handleTogle}>
             <img src={this.state.largeImage} alt="" />
@@ -33,7 +34,7 @@ export class App extends React.Component {
           value={this.state.textSearch}
           openModal={this.handleTogle}
         />
-      </div>
+      </AppStyled>
     );
   }
 }
