@@ -12,6 +12,7 @@ export class ImageGallery extends React.Component {
     images: [],
     loading: false,
     page: 1,
+    totalHits: 0,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,6 +29,7 @@ export class ImageGallery extends React.Component {
         }
         this.setState(prevState => ({
           images: [...prevState.images, ...data.hits],
+          totalHits: data.totalHits,
         }));
       } catch (error) {
         alert('Sorry');
@@ -61,7 +63,9 @@ export class ImageGallery extends React.Component {
             />
           )}
         </ImageGalleryStyled>
-        {this.state.images.length > 0 && <Button page={this.onPage} />}
+        {this.state.totalHits > this.state.images.length && (
+          <Button page={this.onPage} />
+        )}
       </>
     );
   }
