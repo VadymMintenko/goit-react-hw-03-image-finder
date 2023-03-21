@@ -6,11 +6,11 @@ import {
 } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ openModal, images }) => {
-  return images.map((obj, idx) => {
+  return images.map(obj => {
     return (
       <ImageGalleryItemStyled
         className="gallery-item"
-        key={`${obj.id}-${idx}`}
+        key={obj.id}
         onClick={() => {
           openModal(obj.largeImageURL);
         }}

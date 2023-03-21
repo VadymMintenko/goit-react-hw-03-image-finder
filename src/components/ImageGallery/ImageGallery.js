@@ -40,7 +40,7 @@ export class ImageGallery extends React.Component {
       this.setState({ loading: true, images: [], page: 1 }, fetchData);
     }
 
-    if (prevState.page !== this.state.page) {
+    if (prevState.page !== this.state.page && this.state.page > 1) {
       this.setState({ loading: true }, fetchData);
     }
   }
